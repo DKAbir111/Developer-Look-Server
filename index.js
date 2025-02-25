@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const app = express()
 require('dotenv').config()
 const userRoute = require('./routes/userRoute')
+const todosRoute = require('./routes/todosRoute')
 
 const port = process.env.PORT || 5001
 console.log(port)
@@ -31,6 +32,7 @@ connectDB()
 
 //routes
 app.use('/api', userRoute)
+app.use('/api', todosRoute)
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`)
 })
