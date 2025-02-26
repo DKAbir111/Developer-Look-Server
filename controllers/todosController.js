@@ -23,4 +23,30 @@ const findTodos = async (req, res) => {
     }
 }
 
-module.exports = { createTodos, findTodos };
+//need to check the valid user for update the task
+const updateTodo = async (req, res) => {
+    const { id } = req.params;
+    const { status } = req.body;
+    console.log(status, id);
+
+    try {
+        const updatedTodo = await Todos.findByIdAndUpdate(id, { status });
+        res.send(updatedTodo);
+    } catch (error) {
+        res.status(400).send(error.message);
+    }
+}
+
+// need to check the valid user for delete the task
+const deleteTodo = async (req, res) => {
+    const { id } = req.params;
+    try {
+        const deletedTodo = await Todos.findByIdAndDelete(id);
+        res.send(deletedTodo);
+    } catch (error) {
+        res.status(400).send(error.message);
+    }
+
+}
+
+module.exports = { createTodos, findTodos, updateTodo, deleteTodo };
