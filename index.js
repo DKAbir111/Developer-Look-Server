@@ -2,6 +2,7 @@ const express = require('express')
 const cors = require('cors')
 const mongoose = require('mongoose');
 const app = express()
+const cookieParser = require('cookie-parser')
 require('dotenv').config()
 const userRoute = require('./routes/userRoute')
 const todosRoute = require('./routes/todosRoute')
@@ -17,6 +18,7 @@ app.use(cors({
     credentials: true,
 }));
 app.use(express.json())
+app.use(cookieParser())
 app.get('/', (req, res) => {
     return res.send("Server is running...")
 })

@@ -15,6 +15,10 @@ const createTodos = async (req, res) => {
 
 const findTodos = async (req, res) => {
     const { email } = req.query;
+
+    if (email !== req.decoded.user.email) {
+        return res.status(403).send({ message: 'forbidden access' })
+    }
     try {
         const todos = await Todos.find({ email });
         res.send(todos);
