@@ -2,6 +2,10 @@ const Todos = require('../models/todosModel')
 
 const createTodos = async (req, res) => {
 
+    const { email } = req.body;
+    if (email !== req.decoded.user.email) {
+        return res.status(403).send({ message: 'forbidden access' })
+    }
     try {
         const { title, description, dueDate, status, priority, email } = req.body;
         const newTodo = new Todos({ title, description, dueDate, status, priority, email });
@@ -30,7 +34,10 @@ const findTodos = async (req, res) => {
 //need to check the valid user for update the task
 const updateTodo = async (req, res) => {
     const { id } = req.params;
-    const { status } = req.body;
+    const { status, email } = req.body;
+    if (email !== req.decoded.user.email) {
+        return res.status(403).send({ message: 'forbidden access' })
+    }
 
     try {
         const updatedTodo = await Todos.findByIdAndUpdate(id, { status });
@@ -43,6 +50,10 @@ const updateTodo = async (req, res) => {
 // need to check the valid user for delete the task
 const deleteTodo = async (req, res) => {
     const { id } = req.params;
+    const { email } = req.body;
+    if (email !== req.decoded.user.email) {
+        return res.status(403).send({ message: 'forbidden access' })
+    }
     try {
         const deletedTodo = await Todos.findByIdAndDelete(id);
         res.send(deletedTodo);
