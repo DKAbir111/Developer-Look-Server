@@ -27,7 +27,6 @@ const findTodos = async (req, res) => {
 const updateTodo = async (req, res) => {
     const { id } = req.params;
     const { status } = req.body;
-    console.log(status, id);
 
     try {
         const updatedTodo = await Todos.findByIdAndUpdate(id, { status });
