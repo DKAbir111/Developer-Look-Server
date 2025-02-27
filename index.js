@@ -8,15 +8,20 @@ const userRoute = require('./routes/userRoute')
 const todosRoute = require('./routes/todosRoute')
 
 const port = process.env.PORT || 5001
-console.log(port)
+
 
 
 //middleware
-app.use(cors({
-    origin: ['http://localhost:5173',
-    ],
-    credentials: true,
-}));
+app.use(
+    cors({
+        origin: [
+            "http://localhost:5173",
+            "https://todo-app-10423.web.app",
+            "http://localhost:4173",
+        ],
+        credentials: true,
+    })
+);
 app.use(express.json())
 app.use(cookieParser())
 app.get('/', (req, res) => {
