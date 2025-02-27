@@ -10,4 +10,14 @@ const authUser = async (req, res) => {
         .send({ success: true });
 }
 
-module.exports = authUser;
+const logOut = async (req, res) => {
+    res
+        .clearCookie('token', {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production',
+            sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'strict'
+        })
+        .send({ success: true })
+}
+
+module.exports = { authUser, logOut };
